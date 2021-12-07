@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="authService.userData as user">
+    <div class="col-md-12">
+      <div class="account">
+        <div class="account-body">
+          <span>
+            Display Name<br/>
+            <strong>{{ user.displayName ? user.displayName : "User" }}</strong>
+          </span><br/>
+          <span>
+            User ID <br/><strong>{{ user.uid }}</strong>
+          </span><br/>
+          <span>
+            Email<br/> <strong>{{ user.email }}</strong>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

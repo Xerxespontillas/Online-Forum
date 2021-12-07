@@ -1,0 +1,57 @@
+<div class="header-wrap" *ngIf="authService.userData">
+  <h1 class="header-title">ONLINE FORUM</h1>
+</div>
+<hr/>
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light"
+  *ngIf="authService.userData"
+>
+  <div class="container-fluid">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLinkActive="active"
+            aria-current="page"
+            routerLink="/"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin"
+            >Admin</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/account"
+            >MyAccount</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"routerLinkActive="active" routerLink="/login"  (click)="authService.logout()">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#createTopic" >CreateTopic</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<hr />
+<router-outlet></router-outlet>
+<div class="modal fade" id="createTopic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <app-forum-create-topic></app-forum-create-topic>
+</div>

@@ -14,13 +14,12 @@ const routes: Routes = [
   {
     path: 'main',
     component: ForumMainComponent,
-    canActivate: [AuthGuard]  //dont let user access if isLoggedIn returns false
+    canActivate: [AuthGuard]  
   },
   {
-    path: "**",
+    path: "account",
     component: AccountComponent,
   },
-  
 ];
 
 @NgModule({

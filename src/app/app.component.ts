@@ -8,7 +8,7 @@ import { AuthService } from './shared/services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Online-Forum';
+  title = 'Online-Forum-Sign-in';
 
   form = this.fb.group({
     username: ['', [Validators.required]],

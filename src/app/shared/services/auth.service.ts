@@ -1,9 +1,11 @@
+
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from './user';
+import { Topic } from './topic';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,17 @@ import { User } from './user';
 export class AuthService {
   userData: any;
   private usersCollection: AngularFirestoreCollection<User>;
+  private topicCollection: AngularFirestoreCollection<Topic>;
   user$!: Observable<User[]>;
+  _topics!: Observable<Topic[]>;
 
   constructor(public afs: AngularFirestore, public afAuth: AngularFireAuth, public router: Router, public ngZone: NgZone) {
     //get user data from collection
     this.usersCollection = this.afs.collection<User>('users');
     this.user$ = this.usersCollection.valueChanges();
+
+    this.topicCollection = this.afs.collection<Topic>('topics');
+    this._topics = this.topicCollection.valueChanges();
 
     //save user data in localstorage when logged in
     this.afAuth.authState.subscribe(user => {
@@ -46,7 +53,7 @@ export class AuthService {
       user.displayName = result.user?.displayName!;
       this.SetUserData(user);
 
-      
+
 
     }).catch((err) => {
       window.alert(err.message);
@@ -89,7 +96,7 @@ export class AuthService {
       merge: true
     })
 
-    
+
 
   }
 
@@ -104,7 +111,7 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '');
     console.log('User is: ' + user);
-    
+
     return user !== null ? true : false;
   }
 

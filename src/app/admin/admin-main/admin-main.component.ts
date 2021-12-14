@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
-
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { User } from 'src/app/shared/services/user';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-admin-main',
   templateUrl: './admin-main.component.html',
   styleUrls: ['./admin-main.component.css']
 })
-export class AdminMainComponent implements OnInit {
-  users$: any[] = [];
+export class AdminMainComponent{
+ 
+  private userCollection: AngularFirestoreCollection<User>;
+  _user!: Observable<User[]>;
 
-  constructor(public authService: AuthService) { }
+  constructor(public afs: AngularFirestore) { 
 
-  ngOnInit(): void {
-    this.authService.getUsers().subscribe((value) => {
-      //retrieve and assign user data from collection to users$ array
-      this.users$ = value;
-    });
+    this.userCollection = this.afs.collection<User>('users');
+    this._user = this.userCollection.valueChanges();
   }
 
-  onClick(i: number) {
-    console.log(this.users$[i]);
+  onClick(user: User) {
+    const userName = user.displayName;
+    this.userCollection.doc(user.uid).delete();
+    alert (`${userName} has been banned successfully!`);
   }
 }

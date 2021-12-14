@@ -15,12 +15,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users$; index as i">
-          <th scope="row">{{ user.uid }}</th>
-          <td>{{ user.email }}</td>
-          <td>{{ user.displayName }}</td>
-          <td>{{ user.password }}</td>
-          <td><a href="#" (click)="onClick(i)">Ban user</a></td>
+        <tr *ngFor="let item of _user | async ">
+          <td>{{ item.uid }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.displayName }}</td>
+          <td>{{ item.password }}</td>
+          <td><button class="btn btn-danger" (click)="onClick(item)">Ban user</button></td>
         </tr>
       </tbody>
     </table>

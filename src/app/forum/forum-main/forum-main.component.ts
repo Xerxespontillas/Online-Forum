@@ -11,13 +11,6 @@ import { Topic } from 'src/app/shared/services/topic';
   styleUrls: ['./forum-main.component.css']
 })
 export class ForumMainComponent {
-  // constructor(public authService: AuthService) { }
-
-  // user: any;
-  // uid: any;
-
-  // ngOnInit(): void {
-  // }
 
   private topicCollection: AngularFirestoreCollection<Topic>;
   _topics!: Observable<Topic[]>;
@@ -26,8 +19,6 @@ export class ForumMainComponent {
   constructor(public afs: AngularFirestore) {
     this.topicCollection = this.afs.collection<Topic>('topics');
     this._topics = this.topicCollection.valueChanges();
-
-    this.topicCollection.doc('6R4eLS4k0xsDczAHzms4').delete();
   }
 
   //Delete own thread
